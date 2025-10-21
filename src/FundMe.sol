@@ -35,8 +35,12 @@ contract FundMe {
 
     modifier onlyOwner() {
         // require(msg.sender == owner);
-        if (msg.sender != I_OWNER) revert FundMe__NotOwner();
+        _onlyOwner();
         _;
+    }
+
+    function _onlyOwner() private view {
+        if (msg.sender != I_OWNER) revert FundMe__NotOwner();
     }
 
     function cheaperWithdraw() public onlyOwner {
