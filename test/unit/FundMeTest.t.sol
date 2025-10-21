@@ -79,21 +79,14 @@ contract FundMeTest is Test {
         uint256 endingOwnerBalance = fundMe.getOwner().balance;
         uint256 endingFundMeBalance = address(fundMe).balance;
         assertEq(endingFundMeBalance, 0);
-        assertEq(
-            startingFundMeBalance + startingOwnerBalance,
-            endingOwnerBalance
-        );
+        assertEq(startingFundMeBalance + startingOwnerBalance, endingOwnerBalance);
     }
 
     function testWithdrawFromMultipleFundersCheapers() public funded {
         uint160 numberOfFunders = 10;
         uint256 startingIndex = 1;
 
-        for (
-            uint256 i = startingIndex;
-            i < numberOfFunders + startingIndex;
-            i++
-        ) {
+        for (uint256 i = startingIndex; i < numberOfFunders + startingIndex; i++) {
             hoax(address(uint160(i)), SEND_VALUE);
             fundMe.fund{value: SEND_VALUE}();
         }
@@ -105,21 +98,14 @@ contract FundMeTest is Test {
         vm.stopPrank();
 
         assertEq(address(fundMe).balance, 0);
-        assertEq(
-            startingFundMeBalance + startingOwnerBalance,
-            fundMe.getOwner().balance
-        );
+        assertEq(startingFundMeBalance + startingOwnerBalance, fundMe.getOwner().balance);
     }
 
     function testWithdrawFromMultipleFunders() public funded {
         uint160 numberOfFunders = 10;
         uint256 startingIndex = 1;
 
-        for (
-            uint256 i = startingIndex;
-            i < numberOfFunders + startingIndex;
-            i++
-        ) {
+        for (uint256 i = startingIndex; i < numberOfFunders + startingIndex; i++) {
             hoax(address(uint160(i)), SEND_VALUE);
             fundMe.fund{value: SEND_VALUE}();
         }
@@ -131,9 +117,6 @@ contract FundMeTest is Test {
         vm.stopPrank();
 
         assertEq(address(fundMe).balance, 0);
-        assertEq(
-            startingFundMeBalance + startingOwnerBalance,
-            fundMe.getOwner().balance
-        );
+        assertEq(startingFundMeBalance + startingOwnerBalance, fundMe.getOwner().balance);
     }
 }
