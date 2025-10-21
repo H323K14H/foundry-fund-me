@@ -26,7 +26,7 @@ jobs:
 
       - name: Install Foundry deps
         run: |
-          forge install --no-commit --no-confirm
+          forge install --no-git
           forge remappings > remappings.txt
         id: deps
 
