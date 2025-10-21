@@ -24,16 +24,22 @@ jobs:
         run: |
           forge --version
 
-      - name: Install Foundry deps
-        run: |
-          forge install --no-git
-          forge remappings > remappings.txt
-        id: deps
-
       - name: Run Forge fmt
         run: |
           forge fmt --check
         id: fmt
+
+      - name: Install Dependencies
+        run: |
+          forge install smartcontractkit/chainlink-brownie-contracts@0.6.1 --no-git
+          forge install foundry-rs/forge-std --no-git
+          forge install Cyfrin/foundry-devops --no-git
+
+          # Generate remappings.txt
+          forge remappings > remappings.txt
+
+          # Verify installation
+          ls -la lib/
 
       - name: Run Forge build
         run: |
